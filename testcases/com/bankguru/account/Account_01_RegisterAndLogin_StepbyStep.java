@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 import commons.Constants;
 
 // tối đa 5 -10 -15 testcases/class
-public class Account_01_RegisterAndLogin {
+public class Account_01_RegisterAndLogin_StepbyStep {
 	WebDriver driver;
 	String loginPageURL;
   @BeforeClass

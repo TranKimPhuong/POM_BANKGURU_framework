@@ -2,22 +2,19 @@
 <suite name="BankGuru" parallel="false">
   <test name="Run on FIREFOX">
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin"/>
-      <class name="com.bankguru.account.Account_02_ValidateforLoginAndRegisterForm"/>
+      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
     </classes>
   </test> 
   
     <test name="Run on CHROME">
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin"/>
-      <class name="com.bankguru.account.Account_02_ValidateforLoginAndRegisterForm"/>
+      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
     </classes>
   </test>
   
     <test name="Run on IE">
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin"/>
-      <class name="com.bankguru.account.Account_02_ValidateforLoginAndRegisterForm"/>
+      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
     </classes>
   </test>
 </suite> 

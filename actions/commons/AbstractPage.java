@@ -1,22 +1,32 @@
 package commons;
 
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 
-// con userinteraction va uplpad download
 public class AbstractPage {
 	public void openAnyURL(WebDriver driver, String url) {
 		driver.get(url);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(longTimeout, TimeUnit.SECONDS);
 	}
 	
 	public String getPageTitle(WebDriver driver) {
@@ -64,6 +74,23 @@ public class AbstractPage {
 		selector.selectByVisibleText(selectedValue);
 	}
 
+	public void SelectManyItemsInDropDown(WebDriver driver, String parentLocator, String childLocator, List<String> expectedValue){		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebDriverWait wait = new WebDriverWait(driver, longTimeout);
+		WebElement element = driver.findElement(By.xpath(parentLocator));	
+		//clickElementByJs(driver, element);	
+		scrollToViewToClickElementByJs(driver, element);
+
+		List <WebElement> lstAllItems = driver.findElements(By.xpath(childLocator));	
+		wait.until(ExpectedConditions.visibilityOfAllElements(lstAllItems));
+		for(WebElement e: lstAllItems) 
+		{			
+			int index = expectedValue.indexOf(e.getText().trim());	
+			if (index>-1)
+				scrollToViewToClickElementByJs(driver, element);
+		}
+	}
+	
 	public String getSelectedItemInDropdown(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		Select selector = new Select(element);
@@ -158,6 +185,16 @@ public class AbstractPage {
 	    }
 	}
 	
+	public void scrollToViewToClickElementByJs(WebDriver driver,WebElement element) {
+	    try{
+	    	JavascriptExecutor js = (JavascriptExecutor) driver;
+	    	js.executeScript("arguments[0].scrollIntoView(true);", element);
+	    	element.click();
+	    }catch(Exception e){
+	    	e.getMessage();
+	    }
+	}
+	
 	public Object sendKeyByJs(WebDriver driver,WebElement element, String value) {
 	    try{
 	    	JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -229,9 +266,177 @@ public class AbstractPage {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
 	}
 	
+	public void doubleClicktoElement(WebDriver driver, String locator){		
+		WebElement element = driver.findElement(By.xpath(locator));	
+		Actions action = new Actions(driver);
+		action.doubleClick(element).perform();		
+	}
 	
+	public void clickAndholdtManyElements(WebDriver driver, String locator, int elementNumber){				
+		List<WebElement> elements = driver.findElements(By.xpath(locator));
+		Actions action = new Actions(driver);
+		action.keyDown(Keys.CONTROL).build().perform(); 
+		for(int i = 0; i< elementNumber; i++) {
+			elements.get(i).click();
+		}
+		action.keyUp(Keys.CONTROL).build().perform();	
+	}
 	
+	public void hoverMouse(WebDriver driver, String locator){				
+		Actions action = new Actions(driver);
+		WebElement element = driver.findElement(By.xpath(locator));
+		action.moveToElement(element).perform();
+	}
+
+	public void rightClickElement(WebDriver driver, String locator){	
+		WebElement element = driver.findElement(By.xpath(locator));	
+		Actions action = new Actions(driver);
+		action.contextClick(element).perform();	
+	}
 	
+	public void drapAnddropElement(WebDriver driver, String sourceLocator, String targetLocator){				
+		WebElement dragElementFrom = driver.findElement(By.xpath(sourceLocator));
+		WebElement dropElementTo = driver.findElement(By.xpath(targetLocator));
+		Actions action = new Actions(driver);
+		action.clickAndHold(dragElementFrom).perform();
+		action.release(dropElementTo).perform();
+	}
+	
+	public int downLoadByWGet(WebDriver driver, String locator){	
+		WebElement downloadBtn = driver.findElement(By.xpath(locator));
+		String sourceLocation = downloadBtn.getAttribute("href");
+        String wget_cmd = "cmd /c E:\\KP\\Software\\Wget\\wget.exe -P E:\\KP\\Download --no-check-certificate " + sourceLocation;
+		
+        try {
+			Process exec = Runtime.getRuntime().exec(wget_cmd);
+			return exec.waitFor();
+		}catch (InterruptedException | IOException ex){
+			return -1;
+		}		
+	}
+	
+	public void downloadByAutoIT(){
+
+	}
+	
+	public void uploadBySendKeys(WebDriver driver, String locator, String inputPath, String browser){		
+		WebElement btnAddFiles = driver.findElement(By.xpath(locator));		
+		if (browser == "Chrome" | browser == "IE")
+			btnAddFiles.sendKeys(getStringFileNames(inputPath, "\n", "", true)); 
+		else
+		{		
+			List<String> filePaths = getFileNamesList(inputPath, true);	
+			for(String s:filePaths){
+				btnAddFiles = driver.findElement(By.xpath(locator));
+				btnAddFiles.sendKeys(s);
+			}
+		}
+		
+	}
+	
+	public String getStringFileNames(String location, String delimiter, String quote, boolean absolutePath ) {
+		File folder = new File(location);
+	    File[] files = folder.listFiles();
+	    String sFilenames = "";
+	    String path = "";
+	    	    	
+	    for(int i = 0; i < files.length; i++){
+		    if (absolutePath == true)
+		    	path = files[i].getAbsolutePath();
+		    else
+		    	path = files[i].getName();
+		    
+	    	if (files[i].isFile())
+	    		sFilenames += (i != 0? quote + delimiter + quote: quote) + path;
+	    }
+	    sFilenames += quote;  
+	    
+	    return  sFilenames;
+	}
+	
+	public List<String> getFileNamesList(String location, boolean absolutePath) {
+		File folder = new File(location);
+		File[] files = folder.listFiles(); 
+	    List<String> filenamesList = new ArrayList<String>();
+	    String path = "";
+	    
+	    for(int i = 0; i < files.length; i++){
+	    	 if (absolutePath == true)
+			    	path = files[i].getAbsolutePath();
+			    else
+			    	path = files[i].getName();
+	    	if (files[i].isFile())
+	    		filenamesList.add(path);
+	    }	    
+	    return  filenamesList;
+	}
+	/**
+	 * uploadByAutoIT
+		 * 		$CmdLine[1]: window name
+		 * 		$CmdLine[2]: Path
+		 * 		$CmdLine[3]: File names, delimiter is "|" instead of " " because AutoIT  will split by space
+	 * @throws Exception: can test lai
+	 */
+	public void uploadByAutoIT(WebDriver driver, String locator, String browser, String inputPath, String exePath){
+		String windowTitle = "Open";
+		String manyFiles = getStringFileNames(inputPath, "|", "", false);
+		
+		if (browser != "Chrome")
+			windowTitle = "File-Upload";
+	
+		driver.findElement(By.xpath(locator)).click();		
+		try {
+			Runtime.getRuntime().exec(exePath + " " + windowTitle + " " + inputPath  + " " + manyFiles);
+		}catch(IOException ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	public void uploadByRobot(WebDriver driver, String locator, String inputPath){
+		driver.findElement(By.xpath(locator)).click();
+		 try {
+	            Robot robot = new Robot();
+	        	setClipboardDataForPath(inputPath);
+	            
+	            robot.keyPress(KeyEvent.VK_ENTER);
+	            robot.keyRelease(KeyEvent.VK_ENTER);
+	            robot.keyPress(KeyEvent.VK_CONTROL);
+	            robot.keyPress(KeyEvent.VK_V);  
+	            robot.delay(1000); 
+	            robot.keyRelease(KeyEvent.VK_V);
+	            robot.keyRelease(KeyEvent.VK_CONTROL);
+	            robot.keyPress(KeyEvent.VK_ENTER);
+	            robot.keyRelease(KeyEvent.VK_ENTER);
+	            
+	            setClipboardDatForFileName(inputPath);
+	                        
+	            robot.keyPress(KeyEvent.VK_ENTER);
+	            robot.keyRelease(KeyEvent.VK_ENTER);
+	            robot.keyPress(KeyEvent.VK_CONTROL);
+	            robot.keyPress(KeyEvent.VK_V); 
+	            robot.delay(1000);
+	            robot.keyRelease(KeyEvent.VK_V);
+	            robot.keyRelease(KeyEvent.VK_CONTROL);
+	            robot.keyPress(KeyEvent.VK_ENTER);
+	            robot.keyRelease(KeyEvent.VK_ENTER);
+	        } catch (Exception exp) {
+	        	exp.printStackTrace();
+	        }
+
+	}
+	
+	/**
+     * This method will set any parameter string to the system's clip board.
+     */
+	public void setClipboardDataForPath(String path) {
+	    StringSelection stringSelection = new StringSelection(path);	    	    
+	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+	
+	public void setClipboardDatForFileName(String path) {
+        StringSelection stringSelection = new StringSelection(getStringFileNames(path, " ", "\"", false));	    	    
+	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
 	private long shortTimeout = 10;
 	private long longTimeout = 30;
 }
