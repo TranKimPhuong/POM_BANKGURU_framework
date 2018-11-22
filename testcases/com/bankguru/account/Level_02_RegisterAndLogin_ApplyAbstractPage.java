@@ -1,9 +1,6 @@
 package com.bankguru.account;
 
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -14,7 +11,7 @@ import org.testng.annotations.Test;
 import commons.AbstractPage;
 import commons.Constants;
 
-public class Account_01_RegisterAndLogin_ApplyAbstractPage {
+public class Level_02_RegisterAndLogin_ApplyAbstractPage {
 	private WebDriver driver;
 	private String loginPageURL;
 	private AbstractPage abstractPage; 
@@ -30,7 +27,7 @@ public class Account_01_RegisterAndLogin_ApplyAbstractPage {
   
   @Test
   public void TC_01_RegisterToSytem() {
-	  loginPageURL = driver.getCurrentUrl();
+	  loginPageURL = abstractPage.getCurrentPageUrl(driver);
 	  abstractPage.clickToElement(driver, "//a[text() = 'here']");
 	  abstractPage.sendkeyToElement(driver, "//input[@name = 'emailid']", email);
 	  abstractPage.clickToElement(driver, "//input[@name = 'btnLogin']");
@@ -40,7 +37,6 @@ public class Account_01_RegisterAndLogin_ApplyAbstractPage {
 
   @Test
   public void TC_02_LoginToSytem() {
-	  driver.get(loginPageURL);
 	  abstractPage.openAnyURL(driver, loginPageURL);
 	  abstractPage.sendkeyToElement(driver, "//input[@name = 'uid']", userID);
 	  abstractPage.sendkeyToElement(driver, "//input[@name = 'password']", password);

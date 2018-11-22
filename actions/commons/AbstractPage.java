@@ -75,7 +75,6 @@ public class AbstractPage {
 	}
 
 	public void SelectManyItemsInDropDown(WebDriver driver, String parentLocator, String childLocator, List<String> expectedValue){		
-		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebDriverWait wait = new WebDriverWait(driver, longTimeout);
 		WebElement element = driver.findElement(By.xpath(parentLocator));	
 		//clickElementByJs(driver, element);	
@@ -266,13 +265,13 @@ public class AbstractPage {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(locator)));
 	}
 	
-	public void doubleClicktoElement(WebDriver driver, String locator){		
+	public void doubleClicktoElement(WebDriver driver, String locator){
 		WebElement element = driver.findElement(By.xpath(locator));	
 		Actions action = new Actions(driver);
 		action.doubleClick(element).perform();		
 	}
 	
-	public void clickAndholdtManyElements(WebDriver driver, String locator, int elementNumber){				
+	public void clickAndholdtManyElements(WebDriver driver, String locator, int elementNumber){
 		List<WebElement> elements = driver.findElements(By.xpath(locator));
 		Actions action = new Actions(driver);
 		action.keyDown(Keys.CONTROL).build().perform(); 
@@ -282,19 +281,19 @@ public class AbstractPage {
 		action.keyUp(Keys.CONTROL).build().perform();	
 	}
 	
-	public void hoverMouse(WebDriver driver, String locator){				
+	public void hoverMouse(WebDriver driver, String locator){
 		Actions action = new Actions(driver);
 		WebElement element = driver.findElement(By.xpath(locator));
 		action.moveToElement(element).perform();
 	}
 
-	public void rightClickElement(WebDriver driver, String locator){	
+	public void rightClickElement(WebDriver driver, String locator){
 		WebElement element = driver.findElement(By.xpath(locator));	
 		Actions action = new Actions(driver);
 		action.contextClick(element).perform();	
 	}
 	
-	public void drapAnddropElement(WebDriver driver, String sourceLocator, String targetLocator){				
+	public void drapAnddropElement(WebDriver driver, String sourceLocator, String targetLocator){
 		WebElement dragElementFrom = driver.findElement(By.xpath(sourceLocator));
 		WebElement dropElementTo = driver.findElement(By.xpath(targetLocator));
 		Actions action = new Actions(driver);
@@ -302,10 +301,10 @@ public class AbstractPage {
 		action.release(dropElementTo).perform();
 	}
 	
-	public int downLoadByWGet(WebDriver driver, String locator){	
+	public int downLoadByWGet(WebDriver driver, String locator, String exePath, String downloadFolder){
 		WebElement downloadBtn = driver.findElement(By.xpath(locator));
 		String sourceLocation = downloadBtn.getAttribute("href");
-        String wget_cmd = "cmd /c E:\\KP\\Software\\Wget\\wget.exe -P E:\\KP\\Download --no-check-certificate " + sourceLocation;
+        String wget_cmd = "cmd /c " + exePath + " -P " + downloadFolder +" --no-check-certificate " + sourceLocation;
 		
         try {
 			Process exec = Runtime.getRuntime().exec(wget_cmd);

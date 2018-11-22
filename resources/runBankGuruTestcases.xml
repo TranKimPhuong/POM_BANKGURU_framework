@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="BankGuru" parallel="false">
+<suite name="BankGuru" >
   <test name="Run on FIREFOX">
+    	<parameter name="browser" value="firefox"></parameter>
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
+        <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/> 
     </classes>
-  </test> 
-  
+  </test>  
     <test name="Run on CHROME">
+    <parameter name="browser" value="chrome"></parameter>
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
+      <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
+    </classes>
+  </test>
+   <test name="Run on CHROME HEADLESS">
+   <parameter name="browser" value="headless"></parameter>
+    <classes>
+      <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
     </classes>
   </test>
   
-    <test name="Run on IE">
+   <!--  <test name="Run on IE">
     <classes>
-      <class name="com.bankguru.account.Account_01_RegisterAndLogin_ApplyAbstractPage"/>
+      <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
     </classes>
-  </test>
+  </test> -->
 </suite> 
