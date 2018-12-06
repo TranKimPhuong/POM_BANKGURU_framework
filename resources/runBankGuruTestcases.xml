@@ -3,10 +3,10 @@
   <test name="Run on FIREFOX">
     	<parameter name="browser" value="firefox"></parameter>
     <classes>
-        <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/> 
+        <class name="com.bankguru.account.Level_04_RegisterAndLogin_AdvangePOM"/> 
     </classes>
   </test>  
-    <test name="Run on CHROME">
+   <!--  <test name="Run on CHROME">
     <parameter name="browser" value="chrome"></parameter>
     <classes>
       <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
@@ -17,7 +17,7 @@
     <classes>
       <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
     </classes>
-  </test>
+  </test> -->
   
    <!--  <test name="Run on IE">
     <classes>

@@ -1,6 +1,6 @@
 package bankguru;
 
-public class AstractPageUI {
+public class AbstractPageUI {
 	public static final String HOME_LINK = "//a[text() = 'Manager']";
 	public static final String NEW_CUSTOMER_LINK = "//a[text() = 'New Customer']";
 	public static final String EDIT_CUSTOMER_LINK = "//a[text() = 'Edit Customer']";

@@ -17,11 +17,4 @@ public class HomePageObject extends AbstractPage {
 		waitForControlVisible(driver, HomePageUI.HOME_PAGE_HEADING);
 		return isControlDisplayed(driver, HomePageUI.HOME_PAGE_HEADING);
 	}
-
-	public void clickToLogoutLink() {
-		waitForControlVisible(driver, HomePageUI.LOGOUT_LINK);
-		clickToElement(driver, HomePageUI.LOGOUT_LINK);
-		acceptAlert(driver);
-	}
-	
 }

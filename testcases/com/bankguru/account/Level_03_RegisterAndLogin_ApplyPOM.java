@@ -13,7 +13,7 @@ import pages.HomePageObject;
 import pages.LoginPageObject;
 import pages.RegisterPageObject;
 
-public class Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM extends AbstractTest{
+public class Level_03_RegisterAndLogin_ApplyPOM extends AbstractTest{
 	private WebDriver driver;
 	private String loginPageURL;
 

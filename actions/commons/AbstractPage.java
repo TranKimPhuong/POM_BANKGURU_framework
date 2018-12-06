@@ -21,6 +21,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.sun.accessibility.internal.resources.accessibility;
+
+import bankguru.AbstractPageUI;
+import pages.DepositPageObject;
+import pages.EditAccountPageObject;
+import pages.EditCustomerPageObject;
+import pages.HomePageObject;
+import pages.LoginPageObject;
+import pages.NewAccountPageObject;
+import pages.NewCustomerPageObject;
+
 
 public class AbstractPage {
 	public void openAnyURL(WebDriver driver, String url) {
@@ -436,7 +447,68 @@ public class AbstractPage {
         StringSelection stringSelection = new StringSelection(getStringFileNames(path, " ", "\"", false));	    	    
 	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
+	
 	private long shortTimeout = 10;
 	private long longTimeout = 30;
+	
+	//=====================================================================================================
+	// Storing actions on TOP, LEFT, BOTTOM panel
+	/**
+     * Left Menu
+     */
+	public HomePageObject openHomePage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.HOME_LINK );
+		clickToElement(driver, AbstractPageUI.HOME_LINK);
+		return PageFactoryManager.initHomePage(driver);
+	}
+	/**
+     * Left Menu
+     */	
+	public NewCustomerPageObject openNewCustomerPage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		return PageFactoryManager.initNewCustomerPage(driver);
+	}
+	/**
+     * Left Menu
+     */
+	public EditCustomerPageObject openEditCustomerPage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.EDIT_CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.EDIT_CUSTOMER_LINK);
+		return PageFactoryManager.initEditCustomerPage(driver);
+	}
+	/**
+     * Left Menu
+     */
+	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManager.initNewAccountPage(driver);
+	}	
+	/**
+     * Left Menu
+     */
+	public EditAccountPageObject openEditAccountPage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.EDIT_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.EDIT_ACCOUNT_LINK);
+		return PageFactoryManager.initEditAccountPage(driver);
+	}
+	/**
+     * Left Menu
+     */
+	public DepositPageObject openDepositPage(WebDriver driver) {
+		waitForControlVisible(driver, AbstractPageUI.DEPOSIT_LINK);
+		clickToElement(driver, AbstractPageUI.DEPOSIT_LINK);
+		return PageFactoryManager.initDepositPage(driver);
+	}
+	/**
+     * Left Menu
+     */
+	public LoginPageObject clickToLogoutLink(WebDriver driver){
+		waitForControlVisible(driver, AbstractPageUI.LOGOUT_LINK);
+		clickToElement(driver, AbstractPageUI.LOGOUT_LINK);
+		acceptAlert(driver);
+		return PageFactoryManager.initLoginPage(driver);
+	}
 }
 
