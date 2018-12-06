@@ -44,25 +44,18 @@ public class Level_04_RegisterAndLogin_AdvangePOM extends AbstractTest{
 		loginPage = registerPage.openLoginPageByURL(loginPageURL);		
 		loginPage.inputToUserIDTextbox(userID);
 		loginPage.inputToPasswordTextbox(password);
-		loginPage.clikcToLoginBtn();		
-		homePage = PageFactoryManager.initHomePage(driver);
+		homePage = loginPage.clickToLoginBtn();
 		Assert.assertTrue(homePage.isHomePageDisplayed());
 	}
 
 	@Test
 	public void TC_03_openMultiPages() {
 		newCustomerPage = homePage.openNewCustomerPage(driver);
-		
 		editCutomerPage = newCustomerPage.openEditCustomerPage(driver);
-		
 		newAccountPage = editCutomerPage.openNewAccountPage(driver);
-		
 		editAccountPage = newAccountPage.openEditAccountPage(driver);
-		
 		depositPage = editAccountPage.openDepositPage(driver);
-		
 		homePage = depositPage.openHomePage(driver);
-		
 	}
 	
 	@Test
@@ -73,7 +66,7 @@ public class Level_04_RegisterAndLogin_AdvangePOM extends AbstractTest{
 
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		quitBrowser(driver);
 	}
 
 	private String email, userID, password;

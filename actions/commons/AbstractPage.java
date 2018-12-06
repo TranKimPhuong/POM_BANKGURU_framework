@@ -447,7 +447,7 @@ public class AbstractPage {
         StringSelection stringSelection = new StringSelection(getStringFileNames(path, " ", "\"", false));	    	    
 	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
-	
+		
 	private long shortTimeout = 10;
 	private long longTimeout = 30;
 	

@@ -45,6 +45,42 @@ public class AbstractTest {
 		  return driver;
 	}
 	
+	protected void quitBrowser(WebDriver driver) {
+		try {
+			//IE-11
+			driver.manage().deleteAllCookies();
+			//quit browser
+			driver.quit();
+			//Quit process
+			String osName = System.getProperty("os.name").toLowerCase();
+			String cmd = "";
+			if (driver.toString().toLowerCase().contains("chrome")) {
+				if (osName.contains("mac")) {
+					cmd = "pkill chromedriver";
+				}else {
+					cmd = "taskkill /F /FI \"IMAGENAME eq chromedriver*\"";
+				}
+				Process process = Runtime.getRuntime().exec(cmd);
+				process.waitFor();
+			}
+			
+			if (driver.toString().toLowerCase().contains("internetexplorer")) {
+				cmd = "taskkill /F /FI \"IMAGENAME eq IEDriverServer*\"";
+				Process process = Runtime.getRuntime().exec(cmd);
+				process.waitFor();
+			}
+			
+			if (driver.toString().toLowerCase().contains("firefox")) {
+				cmd = "taskkill /F /FI \"IMAGENAME eq geckodriver*\"";
+				Process process = Runtime.getRuntime().exec(cmd);
+				process.waitFor();
+			}
+		}
+		catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
 	public int PickNumberRandom(int limit) {
 		Random rd = new Random();
 		return rd.nextInt(limit);

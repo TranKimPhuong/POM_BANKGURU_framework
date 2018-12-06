@@ -24,9 +24,10 @@ public class LoginPageObject extends AbstractPage {
 		sendkeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, inputValue);
 	}
 	
-	public void clikcToLoginBtn() {
+	public HomePageObject clickToLoginBtn() {
 		waitForControlVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
 		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
+		return PageFactoryManager.initHomePage(driver);
 	}
 
 	public boolean isLoginPageDisplayed() {
