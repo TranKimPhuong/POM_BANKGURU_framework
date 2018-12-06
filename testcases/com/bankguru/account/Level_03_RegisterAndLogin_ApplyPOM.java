@@ -44,7 +44,7 @@ public class Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM extends Abstra
 
 	@Test
 	public void TC_02_LoginToSytem() {
-		loginPage.openLoginPage(loginPageURL);		
+		registerPage.openLoginPageFromAnotherPage(loginPageURL);		
 		loginPage.inputToUserIDTextbox(userID);
 		loginPage.inputToPasswordTextbox(password);
 		loginPage.clikcToLoginBtn();
@@ -53,7 +53,12 @@ public class Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM extends Abstra
 	}
 
 	@Test
-	public void TC_03_Logout() {
+	public void TC_03_openMultiPages() {
+		
+	}
+	
+	@Test
+	public void TC_04_Logout() {
 		homePage.clickToLogoutLink();
 		Assert.assertTrue(loginPage.isLoginPageDisplayed());
 	}
