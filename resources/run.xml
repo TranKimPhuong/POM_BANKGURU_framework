@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="BankGuru" >
+
+     <test name="Run on CHROME">
+    <parameter name="browser" value="chrome"></parameter>
+    <classes>
+      <class name="com.bankguru.account.Level_05_RegisterAndLogin_OverrideForWait_DynamicLocator"/>
+    </classes>
+  </test>
+
+</suite> 

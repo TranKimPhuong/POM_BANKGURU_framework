@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="BankGuru" >
-  <!-- <test name="Run on FIREFOX">
-    	<parameter name="browser" value="firefox"></parameter>
-    <classes>
-        <class name="com.bankguru.account.Level_04_RegisterAndLogin_AdvangePOM"/> 
-    </classes>
-  </test>   -->
-     <test name="Run on CHROME">
-    <parameter name="browser" value="chrome"></parameter>
-    <classes>
-      <class name="com.bankguru.account.Level_04_RegisterAndLogin_AdvangePOM"/>
-    </classes>
-  </test>
-  <!-- <test name="Run on CHROME HEADLESS">
-   <parameter name="browser" value="headless"></parameter>
-    <classes>
-      <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
-    </classes>
-  </test> -->
-  
-   <!--  <test name="Run on IE">
-    <classes>
-      <class name="com.bankguru.account.Level_03_RegisterAndLogin_ApplyAbstractPage_ApplyPOM"/>
-    </classes>
-  </test> -->
+<suite name="BankGuru">
+	<test name="Run on FIREFOX">
+		<parameter name="browser" value="firefox"></parameter>
+		<classes>
+			<class	name="com.bankguru.account.Level_05_RegisterAndLogin_OverrideForWait_DynamicLocator" />
+		</classes>
+	</test>
+	
+	<test name="Run on CHROME"> 
+		<parameter name="browser" value="chrome"></parameter> 
+		<classes> 
+		<class name="com.bankguru.account.Level_05_RegisterAndLogin_OverrideForWait_DynamicLocator"/> 
+		</classes> 
+	</test>
+	
+	<test name="Run on CHROME HEADLESS"> <parameter name="browser" value="headless"></parameter> 
+		<classes> 
+			<class name="com.bankguru.account.Level_05_RegisterAndLogin_OverrideForWait_DynamicLocator"/> 
+		</classes> 
+		</test>
+
+	<test name="Run on IE"> <!--  loi click : phai dung js -->
+		<parameter name="browser" value="ie"></parameter> 
+		<classes> <class name="com.bankguru.account.Level_05_RegisterAndLogin_OverrideForWait_DynamicLocator"/> 
+		</classes> 
+	</test>
 </suite> 

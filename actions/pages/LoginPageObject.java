@@ -15,17 +15,17 @@ public class LoginPageObject extends AbstractPage {
 	}
 		
 	public void inputToUserIDTextbox(String inputValue) {
-		waitForControlVisible(driver, LoginPageUI.USER_ID_TEXTBOX);
-		sendkeyToElement(driver, LoginPageUI.USER_ID_TEXTBOX, inputValue);
+		waitForControlVisible(driver, LoginPageUI.DYNAMIC_TEXTBOX_NAME, "uid");
+		sendkeyToElement(driver, LoginPageUI.DYNAMIC_TEXTBOX_NAME, inputValue, "uid");
 	}
 	
 	public void inputToPasswordTextbox(String inputValue) {
-		waitForControlVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
-		sendkeyToElement(driver, LoginPageUI.PASSWORD_TEXTBOX, inputValue);
+		waitForControlVisible(driver, LoginPageUI.DYNAMIC_TEXTBOX_NAME, "password");
+		sendkeyToElement(driver, LoginPageUI.DYNAMIC_TEXTBOX_NAME, inputValue, "password");
 	}
 	
 	public HomePageObject clickToLoginBtn() {
-		waitForControlVisible(driver, LoginPageUI.PASSWORD_TEXTBOX);
+		waitForControlVisible(driver, LoginPageUI.LOGIN_BUTTON);
 		clickToElement(driver, LoginPageUI.LOGIN_BUTTON);
 		return PageFactoryManager.initHomePage(driver);
 	}
@@ -33,6 +33,11 @@ public class LoginPageObject extends AbstractPage {
 	public boolean isLoginPageDisplayed() {
 		waitForControlVisible(driver, LoginPageUI.LOGIN_PAGE_FORM);
 		return isControlDisplayed(driver, LoginPageUI.LOGIN_PAGE_FORM);
+	}
+	
+	public boolean isLoginPageNotDisplayed() {
+		waitForControlInvisible(driver, LoginPageUI.LOGIN_PAGE_FORM);
+		return isControlNotDisplayed(driver, LoginPageUI.LOGIN_PAGE_FORM);
 	}
 
 	public String getCurrentLoginPageUrl() {

@@ -18,19 +18,19 @@ public class RegisterPageObject extends AbstractPage {
 		sendkeyToElement(driver, RegisterPageUI.EMAIL_TEXTBOX, inputValue);
 	}
 	
-	public void clikcToSubmitBtn() {
+	public void clickToSubmitBtn() {
 		waitForControlVisible(driver, RegisterPageUI.SUBMIT_BUTTON);
 		clickToElement(driver, RegisterPageUI.SUBMIT_BUTTON);
 	}
 	
 	public String getUserID() {
-		waitForControlVisible(driver, RegisterPageUI.USER_ID_TEXT);
-		return getTextElement(driver, RegisterPageUI.USER_ID_TEXT);
+		waitForControlVisible(driver, RegisterPageUI.DYNAMIC_TEXT, "User ID :");
+		return getTextElement(driver, RegisterPageUI.DYNAMIC_TEXT, "User ID :");
 	}
 	
 	public String getPassword() {
-		waitForControlVisible(driver, RegisterPageUI.PASSWORD_TEXT);
-		return getTextElement(driver, RegisterPageUI.PASSWORD_TEXT);
+		waitForControlVisible(driver, RegisterPageUI.DYNAMIC_TEXT, "Password :");
+		return getTextElement(driver, RegisterPageUI.DYNAMIC_TEXT, "Password :");
 	}
 
 	public LoginPageObject openLoginPageByURL(String loginUrl) {

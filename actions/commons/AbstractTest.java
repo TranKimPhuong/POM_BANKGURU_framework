@@ -16,6 +16,7 @@ public class AbstractTest {
 		 switch (browser)
 		  {
 		  	case "firefox":
+		  		System.setProperty("webdriver.gecko.driver", ".//resources//geckodriver.exe");
 			  	driver = new FirefoxDriver();
 			  	break;
 			  	
@@ -34,14 +35,14 @@ public class AbstractTest {
  	    	    driver = new ChromeDriver(chromeOptions);
 			  	break;
 			  	
-		  	case "IE":
-				System.setProperty("webdriver.ie.driver",".//Browsers//IEDriverServer.exe");
+		  	case "ie":
+				System.setProperty("webdriver.ie.driver",".//resources//IEDriverServer.exe");
 				driver = new InternetExplorerDriver();
 		  		break;
 		  }
 		  driver.get(Constants.DEV_URL);
 		  driver.manage().window().maximize();
-		  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		  driver.manage().timeouts().implicitlyWait(AbstractPage.longTimeout, TimeUnit.SECONDS);
 		  return driver;
 	}
 	
